@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardLinha_Cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textID_Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black"
+                android:padding="10dp"
+
+                android:text="1"
+                />
+
+            <TextView
+                android:id="@+id/textNomeCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/textID_Cliente"
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:text="Nome"
+                />
+
+            <TextView
+                android:id="@+id/textDados_Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/textNomeCliente"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="35dp"
+
+                android:text="Dados do Cliente"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
