@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Administracao.MenuActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewClientDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:backgroundTint="@color/bgLogin"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="-20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="30dp"
+                    android:src="@drawable/logo_menu"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="30dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textNomeDash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nome"
+                    android:textColor="@color/white"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="30dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textCargoDash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cargo"
+                    android:fontFamily="@font/noto_sans"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="75dp"
+                    android:layout_marginLeft="30dp"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:text="Dashboard"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textDashboardConsulta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Consultar"
+                android:textColor="@color/dashboardFunction"
+                android:textStyle="bold"
+                android:paddingTop="15dp"
+                android:paddingLeft="20dp"
+
+                android:gravity="center_horizontal"
+                android:selectAllOnFocus="false"
+                android:linksClickable="false"
+                android:autoLink="all"
+                />
+
+            <TextView
+                android:id="@+id/textDashboardRelatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Relatórios"
+                android:paddingLeft="15dp"
+                />
+
+            <TextView
+                android:id="@+id/textDashboardOutro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outros"
+                android:paddingLeft="15dp"
+                />
+        </LinearLayout>
+
+<GridLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rowCount="3"
+    android:columnCount="2"
+    android:layout_marginLeft="29dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="20dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardCliente"
+        android:layout_height="125dp"
+        android:layout_width="125dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/dash_cliente"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/noto_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+
+                android:text="Cliente"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFornecedor"
+        android:layout_height="125dp"
+        android:layout_width="125dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/dash_fornecedor"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/noto_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+
+                android:text="Fornecedor"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardProducao"
+        android:layout_height="125dp"
+        android:layout_width="125dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/dash_producao"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/noto_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+
+                android:text="Produção"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEstoque"
+        android:layout_height="125dp"
+        android:layout_width="125dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/dash_estoque"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/noto_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+
+                android:text="Estoque"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardVenda"
+        android:layout_height="125dp"
+        android:layout_width="125dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/dash_venda"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/noto_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+
+                android:text="Venda"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSobre"
+        android:layout_height="125dp"
+        android:layout_width="125dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/dash_sobre"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="@font/noto_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="5dp"
+
+                android:text="Sobre"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</GridLayout>
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

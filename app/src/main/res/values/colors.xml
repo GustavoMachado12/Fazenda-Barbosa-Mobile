@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="bgLogin">#015C3F</color>
+    <color name="bgLoginButton">#295429</color>
+    <color name="dashboardFunction">#3FE59B</color>
+    <color name="bgLoginForgetPw">#0094FF</color>
+    <color name="hintColor">#8C8C8C</color>
+
+</resources>

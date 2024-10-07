@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#015C3F"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_fazenda"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        />
+    <ImageView
+        android:id="@+id/text_img_logo"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:src="@drawable/text_img_fazenda"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/image_logo"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/layout_login"
+        android:layout_below="@+id/text_img_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_login"
+        android:layout_alignParentBottom="@+id/image_logo"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_bemvindo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Bem vindo!"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/noto_sans"
+
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Faça o login para acessar sua conta."
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/noto_sans"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="@color/black"
+            android:alpha="0.7"
+            android:textStyle="bold"
+
+            android:layout_marginLeft="25dp"
+            />
+        <EditText
+            android:id="@+id/editTextLoginClient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Digite seu login"
+            android:textColorHint="#8C8C8C"
+            android:textColor="#000000"
+            android:alpha="0.7"
+            android:textSize="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Senha"
+            android:alpha="0.7"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/campo_senha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editTextPasswordLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Digite sua senha"
+                android:textColorHint="#8C8C8C"
+                android:textColor="#000000"
+                android:alpha="0.7"
+                android:textSize="15dp"
+                android:ems="10"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/show_password"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:alpha="5"
+                android:padding="5dp"
+                android:src="@drawable/ic_password_on"
+                android:onClick="ShowHidePass"
+                app:layout_constraintEnd_toEndOf="@+id/editTextPasswordLogin"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Esqueci minha senha"
+            android:textColor="@color/bgLoginForgetPw"
+            android:textStyle="bold"
+            android:textSize="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+
+            android:layout_marginLeft="270dp"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonLogin"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+
+            android:text="Entrar"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="150dp"
+
+            app:cornerRadius="32dp"
+            android:backgroundTint="@color/bgLoginButton" />
+    </LinearLayout>
+
+</RelativeLayout>
