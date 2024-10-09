@@ -1,5 +1,6 @@
 package com.example.pim_barbosa.Administracao.Cliente;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.ExecutionException;
 
 public class ClienteAltera extends AppCompatActivity {
     EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento;
@@ -35,6 +37,8 @@ public class ClienteAltera extends AppCompatActivity {
     String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
     int id;
+
+    DtoCliente cliente;
 
     //BANCO
     Connection connection;
@@ -69,6 +73,13 @@ public class ClienteAltera extends AppCompatActivity {
         txtDocumento.setText(bundle.getString("Documento"));
         txtEmail.setText(bundle.getString("Email"));
         txtTelefone.setText(bundle.getString("Telefone"));
+        txtCEP.setText(bundle.getString("CEP"));
+        txtRua.setText(bundle.getString("Logradouro"));
+        txtMunicipio.setText(bundle.getString("Municipio"));
+        txtEstado.setText(bundle.getString("UF"));
+        txtComplemento.setText(bundle.getString("Complemento"));
+
+
 
         //API PARA BUSCAR CEP QUANDO DIGITADO POR COMPLETO
         txtCEP.addTextChangedListener(new TextWatcher() {
@@ -95,10 +106,15 @@ public class ClienteAltera extends AppCompatActivity {
                                 String city = response.getString("city");
 
                                 txtRua.setText(address);
-                                txtMunicipio.setText(city);
-                                txtEstado.setText(state);
+                                txtMunicipio.setText(state);
+                                txtEstado.setText(city);
 
-                                txtEndereco = txtCEP.getText().toString() + "," +txtRua.getText().toString() + "," + txtMunicipio.getText().toString() + "," + txtEstado.getText().toString();
+                                txtEndereco = txtCEP.getText().toString() + ", " +
+                                            address + ", " +
+                                            state + ", " +
+                                            city + ", " +
+                                            txtComplemento.getText().toString();
+
 
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
@@ -120,27 +136,35 @@ public class ClienteAltera extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(txtNome.getText().toString().isEmpty()){
-                    txtNome.setError("Campo obrigatório");
-                } else if(txtDocumento.getText().toString().isEmpty()){
-                    txtDocumento.setError("Campo obrigatório");
-                } else if(txtEmail.getText().toString().isEmpty()){
-                    txtEmail.setError("Campo obrigatório");
-                } else if(txtTelefone.getText().toString().isEmpty()){
-                    txtTelefone.setError("Campo obrigatório");
-                } else if (txtEndereco.isEmpty()) {
-                    txtCEP.setError("Campo obrigatório");
-                } else if(txtDocumento.getText().toString().length() == 11){
-                    alteraClienteF();
-                } else if(txtDocumento.getText().toString().length() == 14){
-                    alteraClienteJ();
-                } else {
-                    Toast.makeText(ClienteAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
+                try {
+                    if (txtNome.getText().toString().isEmpty()) {
+                        txtNome.setError("Campo obrigatório");
+                    } else if (txtDocumento.getText().toString().isEmpty()) {
+                        txtDocumento.setError("Campo obrigatório");
+                    } else if (txtEmail.getText().toString().isEmpty()) {
+                        txtEmail.setError("Campo obrigatório");
+                    } else if (txtTelefone.getText().toString().isEmpty()) {
+                        txtTelefone.setError("Campo obrigatório");
+                    } else if (txtEndereco == null) {
+                        txtCEP.setError("Campo obrigatório");
+                    } else if (txtCEP.getText().toString().isEmpty()) {
+                        txtCEP.setError("Campo obrigatório");
+                    } else if (txtDocumento.getText().toString().length() == 11) {
+                        alteraClienteF();  // Pessoa física
+                    } else if (txtDocumento.getText().toString().length() == 14) {
+                        alteraClienteJ();  // Pessoa jurídica
+                    } else {
+                        Toast.makeText(ClienteAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NullPointerException e) {
+                    Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
+
     }
 
     //ALTERA DADOS DE CLIENTE FISICO
@@ -150,19 +174,26 @@ public class ClienteAltera extends AppCompatActivity {
             Toast.makeText(ClienteAltera.this, "Erro ao conectar", Toast.LENGTH_SHORT).show();
 
         try{
-            String query =  "EXEC pAlteraClienteF SET " +
+            String query =  "EXEC pAlteraClienteF " +
                     "@CodCli = " + id + ", " +
-                    "@NomeCli = " + txtNome.getText().toString() + ", " +
-                    "@EmailCli = " + txtEmail.getText().toString() + ", " +
-                    "@EnderecoCli = " + txtEndereco + ", " +
-                    "@TelefoneCli = " + txtTelefone.getText().toString() + ", " +
-                    "@CPF_Cli = " + txtDocumento.getText().toString() + ", ";
+                    "@NomeCli = '" + txtNome.getText().toString() + "', " +
+                    "@EmailCli = '" + txtEmail.getText().toString() + "', " +
+                    "@EnderecoCli = '" + txtEndereco + "', " +
+                    "@TelefoneCli = '" + txtTelefone.getText().toString() + "', " +
+                    "@CPF_Cli = '" + txtDocumento.getText().toString().trim() + "';";
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
+            int rs = st.executeUpdate(query);
 
+            if(rs == 0){
+                Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
+                Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
+                startActivity(back);
+            }
         } catch (SQLException e){
             Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     //ALTERA DADOS DE CLIENTE JURIDICO
@@ -173,14 +204,20 @@ public class ClienteAltera extends AppCompatActivity {
 
         try{
             String query =  "EXEC pAlteraClienteJ " +
-                            "@CodCli = " + id + ", " +
-                            "@NomeCli = '" + txtNome.getText().toString() + "', " +
-                            "@EmailCli = '" + txtEmail.getText().toString() + "', " +
-                            "@EnderecoCli = '" + txtEndereco + "', " +
-                            "@TelefoneCli = '" + txtTelefone.getText().toString() + "', " +
-                            "@CNPJ_Cli = '" + txtDocumento.getText().toString() + "', ";
+                    "@CodCli = " + id + ", " +
+                    "@NomeCli = '" + txtNome.getText().toString() + "', " +
+                    "@EmailCli = '" + txtEmail.getText().toString() + "', " +
+                    "@EnderecoCli = '" + txtEndereco + "', " +
+                    "@TelefoneCli = '" + txtTelefone.getText().toString() + "', " +
+                    "@CNPJ_Cli = '" + txtDocumento.getText().toString() + "';";
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
+            int rs = st.executeUpdate(query);
+
+            if(rs == 0){
+                Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
+                Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
+                startActivity(back);
+            }
 
         } catch (SQLException e){
             Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();

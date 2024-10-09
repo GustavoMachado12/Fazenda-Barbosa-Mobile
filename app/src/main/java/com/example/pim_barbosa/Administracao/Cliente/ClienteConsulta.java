@@ -3,6 +3,7 @@ package com.example.pim_barbosa.Administracao.Cliente;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pim_barbosa.Administracao.Endereco.DtoEndereco;
 import com.example.pim_barbosa.Conexao.ConSQL;
 import com.example.pim_barbosa.R;
 
@@ -38,12 +40,14 @@ public class ClienteConsulta extends AppCompatActivity {
     List<DtoCliente> listaCliente;
     DtoCliente cliente = new DtoCliente();
 
+
     private TextView textNome, textCargo;
 
     //ListGrid
     private ListView listView;
     SimpleAdapter ad;
     private ArrayList<DtoCliente> itemsArrayList;
+    private String[] endereco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +115,6 @@ public class ClienteConsulta extends AppCompatActivity {
                 clienteMap.put("Cliente_Telefone", cliente.getTelefone());
                 clienteMap.put("Cliente_Endereco", cliente.getEndereco());
                 listaMapCliente.add(clienteMap);
-
-
             }
 
             String[] Fromw = {"Cliente_ID", "Cliente_Nome", "Cliente_CPF_CNPJ", "Cliente_Email", "Cliente_Telefone", "Cliente_Endereco"};
@@ -139,18 +141,53 @@ public class ClienteConsulta extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId() == 0){
+            pegaDadosEndereco(cliente);
             Intent intent = new Intent(ClienteConsulta.this, ClienteAltera.class);
 
-                intent.putExtra("ID", cliente.getId());
-                intent.putExtra("Nome", cliente.getNome());
-                intent.putExtra("Documento", cliente.getDocumento());
-                intent.putExtra("Email", cliente.getEmail());
-                intent.putExtra("Telefone", cliente.getTelefone());
-                intent.putExtra("Endereco", cliente.getEndereco());
-                startActivity(intent);
+            intent.putExtra("ID", cliente.getId());
+            intent.putExtra("Nome", cliente.getNome());
+            intent.putExtra("Documento", cliente.getDocumento());
+            intent.putExtra("Email", cliente.getEmail());
+            intent.putExtra("Telefone", cliente.getTelefone());
+            intent.putExtra("CEP", cliente.getCep());
+            intent.putExtra("Logradouro", cliente.getLogradouro());
+            intent.putExtra("Municipio", cliente.getMunicipio());
+            intent.putExtra("UF", cliente.getUf());
+            intent.putExtra("Complemento", cliente.getComplemento());
+            startActivity(intent);
 
         }
 
         return super.onContextItemSelected(item);
     }
+
+    //PEGA A STRING DE ENDEREÇO E SEPARA OS DADOS QUE ESTÃO SEPARADOS POR ','
+    public void pegaDadosEndereco(DtoCliente cliente) {
+        String[] dadosEndereco = cliente.getEndereco().split(",");
+
+        try {
+            if (dadosEndereco.length >= 4) {
+                cliente.setCep(dadosEndereco[0].trim());
+                cliente.setLogradouro(dadosEndereco[1].trim());
+                cliente.setMunicipio(dadosEndereco[2].trim());
+                cliente.setUf(dadosEndereco[3].trim());
+
+                if (dadosEndereco.length > 4 && !dadosEndereco[4].trim().isEmpty()) {
+                    cliente.setComplemento(dadosEndereco[4].trim());
+                } else {
+                    cliente.setComplemento("");
+                }
+            } else {
+                throw new IllegalArgumentException("Endereço com formato inválido.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+
+            Toast.makeText(getApplicationContext(), "Erro: Formato de endereço incompleto", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
+
+
