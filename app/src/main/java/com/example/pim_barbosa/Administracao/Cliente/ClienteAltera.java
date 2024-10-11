@@ -20,16 +20,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pim_barbosa.Conexao.ConSQL;
 import com.example.pim_barbosa.R;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.concurrent.ExecutionException;
 
 public class ClienteAltera extends AppCompatActivity {
     EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento;
@@ -38,12 +35,9 @@ public class ClienteAltera extends AppCompatActivity {
     String txtEndereco;
     int id;
 
-    DtoCliente cliente;
-
     //BANCO
     Connection connection;
     ConSQL bd = new ConSQL();
-    String str;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +54,8 @@ public class ClienteAltera extends AppCompatActivity {
         txtDocumento = findViewById(R.id.cliente_alterar_documento);
         txtEmail = findViewById(R.id.cliente_alterar_email);
         txtTelefone = findViewById(R.id.cliente_alterar_telefone);
+
+
         txtCEP = findViewById(R.id.cliente_alterar_CEP);
         txtRua = findViewById(R.id.cliente_alterar_endereco);
         txtMunicipio = findViewById(R.id.cliente_alterar_municipio);
@@ -78,6 +74,13 @@ public class ClienteAltera extends AppCompatActivity {
         txtMunicipio.setText(bundle.getString("Municipio"));
         txtEstado.setText(bundle.getString("UF"));
         txtComplemento.setText(bundle.getString("Complemento"));
+
+        //ADICIONA O ENDEREÇO COMPLETO PARA O BANCO
+        txtEndereco = txtCEP.getText().toString() + ", " +
+                txtRua.getText().toString() + ", " +
+                txtMunicipio.getText().toString() + ", " +
+                txtEstado.getText().toString() + ", " +
+                txtComplemento.getText().toString();
 
 
 
@@ -167,7 +170,7 @@ public class ClienteAltera extends AppCompatActivity {
 
     }
 
-    //ALTERA DADOS DE CLIENTE FISICO
+    //ALTERA DADOS DE CLIENTE FISICO - PF
     public void alteraClienteF(){
         connection = bd.con();
         if(bd == null)
@@ -196,7 +199,7 @@ public class ClienteAltera extends AppCompatActivity {
 
     }
 
-    //ALTERA DADOS DE CLIENTE JURIDICO
+    //ALTERA DADOS DE CLIENTE JURIDICO - PJ
     public void alteraClienteJ(){
         connection = bd.con();
         if(bd == null)

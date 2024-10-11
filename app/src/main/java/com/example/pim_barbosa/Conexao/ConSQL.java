@@ -1,8 +1,6 @@
 package com.example.pim_barbosa.Conexao;
 
-import android.annotation.SuppressLint;
 import android.os.StrictMode;
-import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
