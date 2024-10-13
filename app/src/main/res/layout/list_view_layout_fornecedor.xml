@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/Fornecedor_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+
+            android:textColor="@color/black"
+            android:fontFamily="@font/noto_sans"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            />
+
+        
+        <!-- NOME DO FORNECEDOR -->
+        <TextView
+            android:id="@+id/Fornecedor_Nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/Fornecedor_ID"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+
+
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/noto_sans"
+            />
+
+        <!-- CNPJ DO FORNECEDOR -->
+        <TextView
+            android:id="@+id/txtCNPJ_Fornecedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Fornecedor_Nome"
+            android:layout_toRightOf="@+id/Fornecedor_ID"
+            android:layout_marginStart="10dp"
+
+            android:text="CNPJ: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Fornecedor_CNPJ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Fornecedor_Nome"
+            android:layout_toRightOf="@+id/txtCNPJ_Fornecedor"
+
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- EMAIL -->
+        <TextView
+            android:id="@+id/txtEmail_Fornecedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Fornecedor_Nome"
+            android:layout_toRightOf="@+id/Fornecedor_CNPJ"
+            android:layout_marginStart="10dp"
+
+            android:text="Email: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Fornecedor_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Fornecedor_Nome"
+            android:layout_toRightOf="@+id/txtEmail_Fornecedor"
+
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- TELEFONE -->
+        <TextView
+            android:id="@+id/txtTelefone_Fornecedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Fornecedor_Nome"
+            android:layout_toRightOf="@+id/Fornecedor_Email"
+            android:layout_marginStart="10dp"
+
+            android:text="Telefone: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Fornecedor_Telefone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Fornecedor_Nome"
+            android:layout_toRightOf="@+id/txtTelefone_Fornecedor"
+
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- ENDEREÇO -->
+        <TextView
+            android:id="@+id/txtEndereco_Fornecedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/txtCNPJ_Fornecedor"
+            android:layout_toRightOf="@+id/Fornecedor_ID"
+            android:layout_marginStart="10dp"
+
+            android:text="Endereço: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Fornecedor_Endereco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtCNPJ_Fornecedor"
+            android:layout_toRightOf="@+id/txtEndereco_Fornecedor"
+
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

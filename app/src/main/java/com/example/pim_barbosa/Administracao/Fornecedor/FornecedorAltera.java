@@ -1,4 +1,4 @@
-package com.example.pim_barbosa.Administracao.Cliente;
+package com.example.pim_barbosa.Administracao.Fornecedor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
 import com.example.pim_barbosa.Conexao.ConSQL;
 import com.example.pim_barbosa.R;
 
@@ -28,7 +29,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ClienteAltera extends AppCompatActivity {
+public class FornecedorAltera extends AppCompatActivity{
     EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento;
     Button btnAlterar;
     String url = "https://cep.awesomeapi.com.br/json/";
@@ -42,31 +43,31 @@ public class ClienteAltera extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_cliente_alterar);
+        setContentView(R.layout.activity_fornecedor_alterar);
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
 
-        txtNome = findViewById(R.id.cliente_alterar_nome);
-        txtDocumento = findViewById(R.id.cliente_alterar_documento);
-        txtEmail = findViewById(R.id.cliente_alterar_email);
-        txtTelefone = findViewById(R.id.cliente_alterar_telefone);
+        txtNome = findViewById(R.id.fornecedor_alterar_nome);
+        txtDocumento = findViewById(R.id.fornecedor_alterar_documento);
+        txtEmail = findViewById(R.id.fornecedor_alterar_email);
+        txtTelefone = findViewById(R.id.fornecedor_alterar_telefone);
 
 
-        txtCEP = findViewById(R.id.cliente_alterar_CEP);
-        txtRua = findViewById(R.id.cliente_alterar_endereco);
-        txtMunicipio = findViewById(R.id.cliente_alterar_municipio);
-        txtEstado = findViewById(R.id.cliente_alterar_estado);
-        txtComplemento = findViewById(R.id.cliente_alterar_complemento);
-        btnAlterar = findViewById(R.id.btn_cliente_alterar);
+        txtCEP = findViewById(R.id.fornecedor_alterar_CEP);
+        txtRua = findViewById(R.id.fornecedor_alterar_endereco);
+        txtMunicipio = findViewById(R.id.fornecedor_alterar_municipio);
+        txtEstado = findViewById(R.id.fornecedor_alterar_estado);
+        txtComplemento = findViewById(R.id.fornecedor_alterar_complemento);
+        btnAlterar = findViewById(R.id.btn_fornecedor_alterar);
 
+        //BUNDLES EXTRAS
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("ID");
         txtNome.setText(bundle.getString("Nome"));
-        txtDocumento.setText(bundle.getString("Documento"));
+        txtDocumento.setText(bundle.getString("CNPJ"));
         txtEmail.setText(bundle.getString("Email"));
         txtTelefone.setText(bundle.getString("Telefone"));
         txtCEP.setText(bundle.getString("CEP"));
@@ -81,7 +82,6 @@ public class ClienteAltera extends AppCompatActivity {
                 txtMunicipio.getText().toString() + ", " +
                 txtEstado.getText().toString() + ", " +
                 txtComplemento.getText().toString();
-
 
 
         //API PARA BUSCAR CEP QUANDO DIGITADO POR COMPLETO
@@ -113,9 +113,9 @@ public class ClienteAltera extends AppCompatActivity {
                                 txtMunicipio.setText(city);
 
                                 txtEndereco = txtCEP.getText().toString() + ", " +
-                                            address + ", " +
-                                            city + ", " +
-                                            state;
+                                        address + ", " +
+                                        city + ", " +
+                                        state;
 
 
 
@@ -129,11 +129,12 @@ public class ClienteAltera extends AppCompatActivity {
 
                         }
                     });
-                    Volley.newRequestQueue(ClienteAltera.this).add(request);
+                    Volley.newRequestQueue(FornecedorAltera.this).add(request);
 
                 }
             }
         });
+
 
         btnAlterar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,80 +153,48 @@ public class ClienteAltera extends AppCompatActivity {
                         txtCEP.setError("Campo obrigatório");
                     } else if (txtCEP.getText().toString().isEmpty()) {
                         txtCEP.setError("Campo obrigatório");
-                    } else if (txtDocumento.getText().toString().length() == 11) {
-                        txtEndereco += ", " + txtComplemento.getText().toString();
-                        alteraClienteF();  // Pessoa física
                     } else if (txtDocumento.getText().toString().length() == 14) {
                         txtEndereco += ", " + txtComplemento.getText().toString();
-                        alteraClienteJ();  // Pessoa jurídica
+                        alteraFornecedor();  // Pessoa jurídica
                     } else {
-                        Toast.makeText(ClienteAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FornecedorAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
                     }
                 } catch (NullPointerException e) {
-                    Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FornecedorAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FornecedorAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-
     }
 
-    //ALTERA DADOS DE CLIENTE FISICO - PF
-    public void alteraClienteF(){
-        connection = bd.con();
-        if(bd == null)
-            Toast.makeText(ClienteAltera.this, "Erro ao conectar", Toast.LENGTH_SHORT).show();
 
-        try{
-            String query =  "EXEC pAlteraClienteF " +
-                    "@CodCli = " + id + ", " +
-                    "@NomeCli = '" + txtNome.getText().toString() + "', " +
-                    "@EmailCli = '" + txtEmail.getText().toString() + "', " +
-                    "@EnderecoCli = '" + txtEndereco + "', " +
-                    "@TelefoneCli = '" + txtTelefone.getText().toString() + "', " +
-                    "@CPF_Cli = '" + txtDocumento.getText().toString().trim() + "';";
+    //ALTERA DADOS DO FORNECEDOR
+    public void alteraFornecedor() {
+        connection = bd.con();
+        if (bd == null)
+            Toast.makeText(FornecedorAltera.this, "Erro ao conectar", Toast.LENGTH_SHORT).show();
+
+        try {
+            String query = "EXEC pAlteraFornecedor " +
+                    "@CodForn = " + id + ", " +
+                    "@NomeForn = '" + txtNome.getText().toString() + "', " +
+                    "@EmailForn = '" + txtEmail.getText().toString() + "', " +
+                    "@EnderecoForn = '" + txtEndereco + "', " +
+                    "@TelefoneForn = '" + txtTelefone.getText().toString() + "', " +
+                    "@CNPJ = '" + txtDocumento.getText().toString() + "';";
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
 
-            if(rs == 0){
-                Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
-                startActivity(back);
-            }
-        } catch (SQLException e){
-            Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
-
-    //ALTERA DADOS DE CLIENTE JURIDICO - PJ
-    public void alteraClienteJ(){
-        connection = bd.con();
-        if(bd == null)
-            Toast.makeText(ClienteAltera.this, "Erro ao conectar", Toast.LENGTH_SHORT).show();
-
-        try{
-            String query =  "EXEC pAlteraClienteJ " +
-                    "@CodCli = " + id + ", " +
-                    "@NomeCli = '" + txtNome.getText().toString() + "', " +
-                    "@EmailCli = '" + txtEmail.getText().toString() + "', " +
-                    "@EnderecoCli = '" + txtEndereco + "', " +
-                    "@TelefoneCli = '" + txtTelefone.getText().toString() + "', " +
-                    "@CNPJ_Cli = '" + txtDocumento.getText().toString() + "';";
-            Statement st = connection.createStatement();
-            int rs = st.executeUpdate(query);
-
-            if(rs == 0){
-                Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
+            if (rs != 0) {
+                Toast.makeText(FornecedorAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
+                Intent back = new Intent(FornecedorAltera.this, FornecedorConsulta.class);
                 startActivity(back);
             }
 
-        } catch (SQLException e){
-            Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+            Toast.makeText(FornecedorAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
         }
     }
 }

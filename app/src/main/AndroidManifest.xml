@@ -37,6 +37,15 @@
             android:name=".Administracao.Cliente.ClienteAltera"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".Administracao.Fornecedor.FornecedorConsulta"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Administracao.Fornecedor.FornecedorAltera"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

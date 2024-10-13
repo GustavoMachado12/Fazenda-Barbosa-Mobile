@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
+import com.example.pim_barbosa.Administracao.Fornecedor.FornecedorConsulta;
 import com.example.pim_barbosa.R;
 
 public class MenuActivity extends AppCompatActivity {
@@ -60,6 +61,13 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        cardFornecedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fornecedor = new Intent(MenuActivity.this, FornecedorConsulta.class);
+                startActivity(fornecedor);
+            }
+        });
 
     }
 }
