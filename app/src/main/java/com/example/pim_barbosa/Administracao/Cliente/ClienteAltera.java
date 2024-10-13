@@ -109,14 +109,14 @@ public class ClienteAltera extends AppCompatActivity {
                                 String city = response.getString("city");
 
                                 txtRua.setText(address);
-                                txtMunicipio.setText(state);
-                                txtEstado.setText(city);
+                                txtEstado.setText(state);
+                                txtMunicipio.setText(city);
 
                                 txtEndereco = txtCEP.getText().toString() + ", " +
                                             address + ", " +
-                                            state + ", " +
                                             city + ", " +
-                                            txtComplemento.getText().toString();
+                                            state;
+
 
 
                             } catch (JSONException e) {
@@ -139,6 +139,8 @@ public class ClienteAltera extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 try {
                     if (txtNome.getText().toString().isEmpty()) {
                         txtNome.setError("Campo obrigatório");
@@ -153,8 +155,10 @@ public class ClienteAltera extends AppCompatActivity {
                     } else if (txtCEP.getText().toString().isEmpty()) {
                         txtCEP.setError("Campo obrigatório");
                     } else if (txtDocumento.getText().toString().length() == 11) {
+                        txtEndereco += ", " + txtComplemento.getText().toString();
                         alteraClienteF();  // Pessoa física
                     } else if (txtDocumento.getText().toString().length() == 14) {
+                        txtEndereco += ", " + txtComplemento.getText().toString();
                         alteraClienteJ();  // Pessoa jurídica
                     } else {
                         Toast.makeText(ClienteAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
