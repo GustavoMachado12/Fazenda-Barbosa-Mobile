@@ -8,10 +8,10 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/Cliente_ID"
+            android:id="@+id/Produto_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
 
             android:textColor="@color/black"
             android:fontFamily="@font/noto_sans"
@@ -20,13 +20,13 @@
             />
 
         <TextView
-            android:id="@+id/Cliente_Nome"
+            android:id="@+id/Produto_Nome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/Cliente_ID"
+
+            android:layout_toRightOf="@+id/Produto_ID"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-
 
             android:textSize="15dp"
             android:textStyle="bold"
@@ -34,30 +34,29 @@
             android:fontFamily="@font/noto_sans"
             />
 
-
-        <!-- DOCUMENTO DO CLIENTE -->
+        <!-- QUANTIDADE -->
         <TextView
-            android:id="@+id/txtDocumento_Cliente"
+            android:id="@+id/txtQuantidade_Produto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@+id/Cliente_Nome"
-            android:layout_toRightOf="@+id/Cliente_ID"
+            android:layout_below="@+id/Produto_Nome"
+            android:layout_toRightOf="@+id/Produto_ID"
             android:layout_marginStart="10dp"
 
-            android:text="Documento: "
+            android:text="Quant.: "
             android:textSize="10dp"
             android:textStyle="bold"
             android:textColor="@color/hintColor"
             android:fontFamily="@font/notosans_regular"
             />
         <TextView
-            android:id="@+id/Cliente_CPF_CNPJ"
+            android:id="@+id/Produto_Quantidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Cliente_Nome"
-            android:layout_toRightOf="@+id/txtDocumento_Cliente"
 
+            android:layout_below="@+id/Produto_Nome"
+            android:layout_toRightOf="@+id/txtQuantidade_Produto"
 
             android:textSize="10dp"
             android:textStyle="bold"
@@ -65,30 +64,29 @@
             android:fontFamily="@font/notosans_regular"
             />
 
-        <!-- EMAIL DO CLIENTE -->
+        <!-- CATEGORIA/TIPO -->
         <TextView
-            android:id="@+id/txtEmail_Cliente"
+            android:id="@+id/txtCategoria_Produto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@+id/Cliente_Nome"
-            android:layout_toRightOf="@+id/Cliente_CPF_CNPJ"
+            android:layout_below="@+id/Produto_Nome"
+            android:layout_toRightOf="@+id/Produto_Quantidade"
             android:layout_marginStart="10dp"
 
-            android:text="Email: "
+            android:text="Tipo.: "
             android:textSize="10dp"
             android:textStyle="bold"
             android:textColor="@color/hintColor"
             android:fontFamily="@font/notosans_regular"
             />
-
         <TextView
-            android:id="@+id/Cliente_Email"
+            android:id="@+id/Produto_Categoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Cliente_Nome"
-            android:layout_toRightOf="@+id/txtEmail_Cliente"
 
+            android:layout_below="@+id/Produto_Nome"
+            android:layout_toRightOf="@+id/txtCategoria_Produto"
 
             android:textSize="10dp"
             android:textStyle="bold"
@@ -96,68 +94,35 @@
             android:fontFamily="@font/notosans_regular"
             />
 
-        <!-- TELEFONE -->
+        <!-- VALOR -->
         <TextView
-            android:id="@+id/txtTelefone_Cliente"
+            android:id="@+id/txtValor_Produto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@+id/Cliente_Nome"
-            android:layout_toRightOf="@+id/Cliente_Email"
+            android:layout_below="@+id/Produto_Nome"
+            android:layout_toRightOf="@+id/Produto_Categoria"
             android:layout_marginStart="10dp"
 
-            android:text="Telefone: "
+            android:text="Valor.: R$"
             android:textSize="10dp"
             android:textStyle="bold"
             android:textColor="@color/hintColor"
             android:fontFamily="@font/notosans_regular"
             />
-
         <TextView
-            android:id="@+id/Cliente_Telefone"
+            android:id="@+id/Produto_Valor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Cliente_Nome"
-            android:layout_toRightOf="@+id/txtTelefone_Cliente"
 
+            android:layout_below="@+id/Produto_Nome"
+            android:layout_toRightOf="@+id/txtValor_Produto"
 
             android:textSize="10dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:fontFamily="@font/notosans_regular"
             />
-
-        <!-- ENDEREÇO -->
-        <TextView
-            android:id="@+id/txtEndereco_Cliente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_below="@+id/txtDocumento_Cliente"
-            android:layout_toRightOf="@+id/Cliente_ID"
-            android:layout_marginStart="10dp"
-
-            android:text="Endereço: "
-            android:textSize="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/hintColor"
-            android:fontFamily="@font/notosans_regular"
-            />
-
-        <TextView
-            android:id="@+id/Cliente_Endereco"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Cliente_CPF_CNPJ"
-            android:layout_toRightOf="@+id/txtEndereco_Cliente"
-
-
-            android:textSize="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="@font/notosans_regular"
-            />
-
 
 
     </RelativeLayout>
