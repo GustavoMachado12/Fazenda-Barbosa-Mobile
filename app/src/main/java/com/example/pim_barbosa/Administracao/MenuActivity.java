@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
 import com.example.pim_barbosa.Administracao.Fornecedor.FornecedorConsulta;
+import com.example.pim_barbosa.Administracao.Producao.ProducaoConsulta;
 import com.example.pim_barbosa.Administracao.Produto.ProdutoConsulta;
 import com.example.pim_barbosa.R;
 
@@ -75,6 +76,14 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent produto = new Intent(MenuActivity.this, ProdutoConsulta.class);
                 startActivity(produto);
+            }
+        });
+
+        cardProducao.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent producao = new Intent(MenuActivity.this, ProducaoConsulta.class);
+                startActivity(producao);
             }
         });
 

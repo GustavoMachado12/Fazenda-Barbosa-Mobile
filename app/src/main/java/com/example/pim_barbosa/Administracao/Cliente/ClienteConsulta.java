@@ -1,7 +1,5 @@
 package com.example.pim_barbosa.Administracao.Cliente;
 
-import static java.lang.Double.valueOf;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -129,12 +127,12 @@ public class ClienteConsulta extends AppCompatActivity {
         }
 
         try {
-            String query = "EXEC vw_Cliente_Descripto";
+            String query = "EXEC pSelectCliente_Descripto";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapCliente = new ArrayList<>();
 
-            listaCliente.clear(); // Limpa a lista original
+            listaCliente.clear();
 
             while (rs.next()) {
                 DtoCliente cliente = new DtoCliente();
@@ -157,7 +155,6 @@ public class ClienteConsulta extends AppCompatActivity {
                 listaMapCliente.add(clienteMap);
             }
 
-            // Atualiza a lista filtrada para mostrar todos os clientes inicialmente
             listaClienteFiltrado.clear();
             listaClienteFiltrado.addAll(listaCliente);
 
@@ -180,7 +177,7 @@ public class ClienteConsulta extends AppCompatActivity {
         }
 
         try {
-            String query = "EXEC vw_Pesquisa_Cliente_Descripto @Nome = '" + nome + "'";
+            String query = "EXEC pFiltra_Nome_Cliente @Nome = '" + nome + "'";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapCliente = new ArrayList<>();

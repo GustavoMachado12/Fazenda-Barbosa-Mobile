@@ -154,10 +154,10 @@ public class ClienteAltera extends AppCompatActivity {
                         txtCEP.setError("Campo obrigatório");
                     } else if (txtDocumento.getText().toString().length() == 11) {
                         txtEndereco += ", " + txtComplemento.getText().toString();
-                        alteraClienteF();  // Pessoa física
+                        alteraClienteF();
                     } else if (txtDocumento.getText().toString().length() == 14) {
                         txtEndereco += ", " + txtComplemento.getText().toString();
-                        alteraClienteJ();  // Pessoa jurídica
+                        alteraClienteJ();
                     } else {
                         Toast.makeText(ClienteAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
                     }
@@ -218,7 +218,7 @@ public class ClienteAltera extends AppCompatActivity {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
 
-            if(rs == 0){
+            if(rs != 1){
                 Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
                 Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
                 startActivity(back);

@@ -55,6 +55,15 @@
             android:name=".Administracao.Produto.ProdutoAltera"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".Administracao.Producao.ProducaoConsulta"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Administracao.Producao.ProducaoAltera"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

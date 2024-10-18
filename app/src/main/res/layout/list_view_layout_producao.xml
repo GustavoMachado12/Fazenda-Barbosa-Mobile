@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/Producao_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:textColor="@color/black"
+            android:fontFamily="@font/noto_sans"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/Producao_Nome_Produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/Producao_ID"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+
+
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/noto_sans"
+            />
+        
+        <!-- DATA PLANTIO -->
+        <TextView
+            android:id="@+id/txtDt_Plantio_Producao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Producao_Nome_Produto"
+            android:layout_toEndOf="@+id/Producao_ID"
+            android:layout_marginStart="10dp"
+
+            android:text="Data Plantio: "
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Producao_Dt_Plantio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Producao_Nome_Produto"
+            android:layout_toRightOf="@+id/txtDt_Plantio_Producao"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+
+
+        <!-- DATA COLHEITA -->
+        <TextView
+            android:id="@+id/txtDt_Colheita_Producao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Producao_Nome_Produto"
+            android:layout_toEndOf="@+id/Producao_Dt_Plantio"
+            android:layout_marginStart="10dp"
+
+            android:text="Data Colheita: "
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Producao_Dt_Colheita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Producao_Nome_Produto"
+            android:layout_toEndOf="@+id/txtDt_Colheita_Producao"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- VALOR LOTE -->
+        <TextView
+            android:id="@+id/txtValor_Lote_Producao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Producao_Nome_Produto"
+            android:layout_toEndOf="@+id/Producao_Dt_Colheita"
+            android:layout_marginStart="10dp"
+
+            android:text="Valor Lote: R$"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Producao_Valor_Lote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Producao_Nome_Produto"
+            android:layout_toEndOf="@+id/txtValor_Lote_Producao"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- STATUS COLHEITA -->
+        <TextView
+            android:id="@+id/txtStatus_Producao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/txtDt_Plantio_Producao"
+            android:layout_toEndOf="@+id/Producao_ID"
+            android:layout_marginStart="10dp"
+
+            android:text="Status: "
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Producao_Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/txtDt_Plantio_Producao"
+            android:layout_toEndOf="@+id/txtStatus_Producao"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

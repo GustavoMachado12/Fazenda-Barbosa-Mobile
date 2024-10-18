@@ -119,7 +119,7 @@ public class FornecedorConsulta extends AppCompatActivity {
         }
 
         try {
-            String query = "EXEC pSelectFornecedorDescripto";
+            String query = "EXEC pSelectFornecedor_Descripto";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapfornecedor = new ArrayList<>();
@@ -170,7 +170,7 @@ public class FornecedorConsulta extends AppCompatActivity {
         }
 
         try {
-            String query = "EXEC pSelectFornecedorFiltradoDescripto @Nome = '" + nome + "'";
+            String query = "EXEC pFiltraFornecedor_Descripto @Nome = '" + nome + "'";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapfornecedor = new ArrayList<>();

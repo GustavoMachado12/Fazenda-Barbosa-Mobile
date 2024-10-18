@@ -167,7 +167,7 @@ public class ProdutoConsulta extends AppCompatActivity {
         }
 
         try {
-            String query = "EXEC pSelectProdutoFiltrado @Produto = '" + nome + "'";
+            String query = "EXEC pFiltraProdutos @Produto = '" + nome + "'";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapproduto = new ArrayList<>();
