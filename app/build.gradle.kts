@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(files("C:\\Users\\HOME\\Downloads\\Nova pasta\\jtds-1.3.1.jar"))
     implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.protolite.well.known.types)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

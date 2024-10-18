@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/Venda_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:textColor="@color/black"
+            android:fontFamily="@font/noto_sans"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/Venda_Cliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/Venda_ID"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/noto_sans"
+            />
+
+        <!-- DATA DA VENDA -->
+        <TextView
+            android:id="@+id/txtVenda_Info_Dt_Venda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+
+            android:text="Data: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="#8C8C8C"
+            android:fontFamily="@font/notosans_regular"
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/Venda_ID"
+            />
+        <TextView
+            android:id="@+id/Venda_Data_Venda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/txtVenda_Info_Dt_Venda"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- PRODUTO -->
+        <TextView
+            android:id="@+id/txtVenda_Info_Produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/Venda_Data_Venda"
+
+            android:text="Produto.: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Venda_Produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/txtVenda_Info_Produto"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- QUANTIDADE -->
+        <TextView
+            android:id="@+id/txtVenda_Info_Qtd_Produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/Venda_Produto"
+
+            android:text="Quant.: "
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Venda_Quantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/txtVenda_Info_Qtd_Produto"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- VALOR UNITÁRIO -->
+        <TextView
+            android:id="@+id/txtVenda_Info_Val_Unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/Venda_Quantidade"
+
+            android:text="Valor Unitário.: R$"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Venda_Valor_Unitario_Produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/Venda_Cliente"
+            android:layout_toRightOf="@+id/txtVenda_Info_Val_Unit"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+
+        <!-- VALOR TOTAL -->
+        <TextView
+            android:id="@+id/txtVenda_Info_Val_Total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/txtVenda_Info_Dt_Venda"
+            android:layout_toRightOf="@+id/Venda_ID"
+
+            android:text="Valor Total.: R$"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/notosans_regular"
+            />
+        <TextView
+            android:id="@+id/Venda_Valor_Total_Produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtVenda_Info_Dt_Venda"
+            android:layout_toRightOf="@+id/txtVenda_Info_Val_Total"
+
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosans_regular"
+            />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

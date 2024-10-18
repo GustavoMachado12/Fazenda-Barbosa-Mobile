@@ -13,6 +13,7 @@ import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
 import com.example.pim_barbosa.Administracao.Fornecedor.FornecedorConsulta;
 import com.example.pim_barbosa.Administracao.Producao.ProducaoConsulta;
 import com.example.pim_barbosa.Administracao.Produto.ProdutoConsulta;
+import com.example.pim_barbosa.Administracao.Venda.VendaConsulta;
 import com.example.pim_barbosa.R;
 
 public class MenuActivity extends AppCompatActivity {
@@ -84,6 +85,14 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent producao = new Intent(MenuActivity.this, ProducaoConsulta.class);
                 startActivity(producao);
+            }
+        });
+
+        cardVenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent venda = new Intent(MenuActivity.this, VendaConsulta.class);
+                startActivity(venda);
             }
         });
 

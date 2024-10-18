@@ -52,7 +52,6 @@ public class ProducaoConsulta extends AppCompatActivity {
     //ListGrid
     private ListView listView;
     SimpleAdapter ad;
-    private int idProduto;
 
 
     @Override

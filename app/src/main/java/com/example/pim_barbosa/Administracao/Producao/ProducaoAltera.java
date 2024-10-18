@@ -215,9 +215,9 @@ public class ProducaoAltera extends AppCompatActivity {
             PreparedStatement st = connection.prepareStatement(query);
             st.setInt(1, id);
             st.setString(2, txtNomeProduto.getText().toString());
-            st.setString(3, txtDataPlantio.getText().toString());  // Data formatada
-            st.setString(4, txtDataColheita.getText().toString());  // Data formatada
-            st.setInt(5, codStatus);  // Código do status
+            st.setString(3, txtDataPlantio.getText().toString());
+            st.setString(4, txtDataColheita.getText().toString());
+            st.setInt(5, codStatus);
             st.setFloat(6, Float.parseFloat(txtValor.getText().toString().trim()));
 
             int rs = st.executeUpdate();
