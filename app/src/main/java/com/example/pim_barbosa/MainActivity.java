@@ -14,11 +14,15 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pim_barbosa.Administracao.Banco.LoginAcesso;
 import com.example.pim_barbosa.Administracao.MenuActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText editTextLogin, editTextSenha;
     Button buttonLogin;
+
+    LoginAcesso loginAcesso = new LoginAcesso();
+    int nvlLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +46,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //VERIFICA SE ESTÁ VAZIO
-                if(editTextLogin.getText().toString().isEmpty()){
-                    editTextLogin.requestFocus();
-                    Toast.makeText(MainActivity.this, "Login vazio.", Toast.LENGTH_SHORT).show();
-                } else if (editTextSenha.getText().toString().isEmpty()) {
-                    editTextSenha.requestFocus();
-                    Toast.makeText(MainActivity.this, "Senha vazia.", Toast.LENGTH_SHORT).show();
-                }
 
-                //VERIFICA O TIPO DE PERFIL
-                else if(editTextLogin.getText().toString().equals("adm")) { //FUNCIONARIO
-                    if (editTextSenha.getText().toString().equals("123")) {
+                nvlLogin = loginAcesso.verificaAcesso(editTextLogin.getText().toString(), editTextSenha.getText().toString());
+                if(nvlLogin != 0){
+                    if(nvlLogin != 1)
                         Toast.makeText(MainActivity.this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                        Intent login = new Intent(MainActivity.this, MenuActivity.class);
-                        startActivity(login);
-                    } else {
-                        editTextSenha.requestFocus();
-                        Toast.makeText(MainActivity.this, "Senha incorreta ou vazio.", Toast.LENGTH_SHORT).show();
-                    }
+                    Intent login = new Intent(MainActivity.this, MenuActivity.class);
+                    startActivity(login);
                 } else {
-                    editTextLogin.requestFocus();
                     Toast.makeText(MainActivity.this, "Login incorreto ou vazio.", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
