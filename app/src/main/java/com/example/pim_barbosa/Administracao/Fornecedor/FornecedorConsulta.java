@@ -239,6 +239,7 @@ public class FornecedorConsulta extends AppCompatActivity {
             intent.putExtra("Municipio", fornecedor.getMunicipio());
             intent.putExtra("UF", fornecedor.getUf());
             intent.putExtra("Complemento", fornecedor.getComplemento());
+            intent.putExtra("Bairro", fornecedor.getBairro());
             startActivity(intent);
 
         } else if(item.getItemId() == 1){

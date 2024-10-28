@@ -29,7 +29,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ClienteAltera extends AppCompatActivity {
-    EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento;
+    EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento, txtBairro;
     Button btnAlterar;
     String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
@@ -61,6 +61,7 @@ public class ClienteAltera extends AppCompatActivity {
         txtMunicipio = findViewById(R.id.cliente_alterar_municipio);
         txtEstado = findViewById(R.id.cliente_alterar_estado);
         txtComplemento = findViewById(R.id.cliente_alterar_complemento);
+        txtBairro = findViewById(R.id.cliente_alterar_bairro);
         btnAlterar = findViewById(R.id.btn_cliente_alterar);
 
         Bundle bundle = getIntent().getExtras();
@@ -74,10 +75,12 @@ public class ClienteAltera extends AppCompatActivity {
         txtMunicipio.setText(bundle.getString("Municipio"));
         txtEstado.setText(bundle.getString("UF"));
         txtComplemento.setText(bundle.getString("Complemento"));
+        txtBairro.setText(bundle.getString("Bairro"));
 
         //ADICIONA O ENDEREÇO COMPLETO PARA O BANCO
         txtEndereco = txtCEP.getText().toString() + ", " +
                 txtRua.getText().toString() + ", " +
+                txtBairro.getText().toString() + ", " +
                 txtMunicipio.getText().toString() + ", " +
                 txtEstado.getText().toString() + ", " +
                 txtComplemento.getText().toString();
@@ -107,13 +110,16 @@ public class ClienteAltera extends AppCompatActivity {
                                 String address = response.getString("address");
                                 String state = response.getString("state");
                                 String city = response.getString("city");
+                                String district = response.getString("district");
 
                                 txtRua.setText(address);
                                 txtEstado.setText(state);
                                 txtMunicipio.setText(city);
+                                txtBairro.setText(district);
 
                                 txtEndereco = txtCEP.getText().toString() + ", " +
                                             address + ", " +
+                                            district + ", " +
                                             city + ", " +
                                             state;
 

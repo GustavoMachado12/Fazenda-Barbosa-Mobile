@@ -241,6 +241,7 @@ public class ClienteConsulta extends AppCompatActivity {
             intent.putExtra("Municipio", cliente.getMunicipio());
             intent.putExtra("UF", cliente.getUf());
             intent.putExtra("Complemento", cliente.getComplemento());
+            intent.putExtra("Bairro", cliente.getBairro());
             startActivity(intent);
 
         } else if(item.getItemId() == 1){
@@ -258,10 +259,11 @@ public class ClienteConsulta extends AppCompatActivity {
             if (dadosEndereco.length >= 4) {
                 cliente.setCep(dadosEndereco[0].trim());
                 cliente.setLogradouro(dadosEndereco[1].trim());
-                cliente.setMunicipio(dadosEndereco[2].trim());
-                cliente.setUf(dadosEndereco[3].trim());
+                cliente.setBairro(dadosEndereco[2].trim());
+                cliente.setMunicipio(dadosEndereco[3].trim());
+                cliente.setUf(dadosEndereco[4].trim());
 
-                if (dadosEndereco.length > 4 && !dadosEndereco[4].trim().isEmpty()) {
+                if (dadosEndereco.length > 5 && !dadosEndereco[4].trim().isEmpty()) {
                     cliente.setComplemento(dadosEndereco[4].trim());
                 } else {
                     cliente.setComplemento("");

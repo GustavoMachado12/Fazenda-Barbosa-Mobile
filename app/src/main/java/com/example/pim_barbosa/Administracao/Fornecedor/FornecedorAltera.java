@@ -18,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
 import com.example.pim_barbosa.Conexao.ConSQL;
 import com.example.pim_barbosa.R;
 
@@ -30,7 +29,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class FornecedorAltera extends AppCompatActivity{
-    EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento;
+    EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento, txtBairro;
     Button btnAlterar;
     String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
@@ -61,6 +60,7 @@ public class FornecedorAltera extends AppCompatActivity{
         txtMunicipio = findViewById(R.id.fornecedor_alterar_municipio);
         txtEstado = findViewById(R.id.fornecedor_alterar_estado);
         txtComplemento = findViewById(R.id.fornecedor_alterar_complemento);
+        txtBairro = findViewById(R.id.fornecedor_alterar_bairro);
         btnAlterar = findViewById(R.id.btn_fornecedor_alterar);
 
         //BUNDLES EXTRAS
@@ -75,10 +75,12 @@ public class FornecedorAltera extends AppCompatActivity{
         txtMunicipio.setText(bundle.getString("Municipio"));
         txtEstado.setText(bundle.getString("UF"));
         txtComplemento.setText(bundle.getString("Complemento"));
+        txtBairro.setText(bundle.getString("Bairro"));
 
         //ADICIONA O ENDEREÇO COMPLETO PARA O BANCO
         txtEndereco = txtCEP.getText().toString() + ", " +
                 txtRua.getText().toString() + ", " +
+                txtBairro.getText().toString() + "," +
                 txtMunicipio.getText().toString() + ", " +
                 txtEstado.getText().toString() + ", " +
                 txtComplemento.getText().toString();
@@ -107,13 +109,16 @@ public class FornecedorAltera extends AppCompatActivity{
                                 String address = response.getString("address");
                                 String state = response.getString("state");
                                 String city = response.getString("city");
+                                String district = response.getString("district");
 
                                 txtRua.setText(address);
                                 txtEstado.setText(state);
                                 txtMunicipio.setText(city);
+                                txtBairro.setText(district);
 
                                 txtEndereco = txtCEP.getText().toString() + ", " +
                                         address + ", " +
+                                        district + ", " +
                                         city + ", " +
                                         state;
 

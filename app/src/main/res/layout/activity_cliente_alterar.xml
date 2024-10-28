@@ -237,7 +237,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Endereço"
+            android:text="Logradouro"
             android:fontFamily="@font/noto_sans"
             android:textColor="@color/black"
             android:textSize="12dp"
@@ -256,6 +256,38 @@
             android:layout_marginTop="-7sp"
 
             android:hint="Rua Jacinto Aquino"
+            android:textColorHint="@color/hintColor"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:fontFamily="@font/noto_sans"
+            android:inputType="text"
+            android:enabled="false"
+            />
+
+        <!-- BAIRRO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Bairro"
+            android:fontFamily="@font/noto_sans"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="bold"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            />
+        <EditText
+            android:id="@+id/cliente_alterar_bairro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-7sp"
+
+            android:hint="Vila Madalena"
             android:textColorHint="@color/hintColor"
             android:textColor="@color/black"
             android:textSize="12dp"

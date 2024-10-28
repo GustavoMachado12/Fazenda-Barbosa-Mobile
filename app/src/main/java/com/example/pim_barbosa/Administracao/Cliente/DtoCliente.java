@@ -15,6 +15,7 @@ public class DtoCliente {
     private String municipio;
     private String uf;
     private String complemento;
+    private String bairro;
 
 
     public DtoCliente(int id, String nome, String email, String telefone, String documento, String endereco, String cep, String logradouro, String municipio, String uf, String complemento) {
@@ -124,4 +125,11 @@ public class DtoCliente {
         this.complemento = complemento;
     }
 
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 }

@@ -15,6 +15,7 @@ public class DtoFornecedor {
     private String municipio;
     private String uf;
     private String complemento;
+    private String bairro;
 
     public DtoFornecedor() {
 
@@ -106,5 +107,13 @@ public class DtoFornecedor {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 }
