@@ -57,7 +57,7 @@ public class ProducaoConsulta extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_produto_consulta);
+        setContentView(R.layout.activity_producao_consulta);
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -67,12 +67,13 @@ public class ProducaoConsulta extends AppCompatActivity {
         textNome = findViewById(R.id.textNomeDash);
         textCargo = findViewById(R.id.textCargoDash);
 
-        textNome.setText("Gustavo");
-        textCargo.setText("Auxiliar Administrativo");
+        textNome.setText(getIntent().getStringExtra("Nome"));
+        textCargo.setText(getIntent().getStringExtra("Cargo"));
+
         txtBuscaPorNome = findViewById(R.id.editTextBusca);
 
         //LIST VIEW
-        listView = findViewById(R.id.listaProduto);
+        listView = findViewById(R.id.listaProducao);
         listaProducaoDTO = new ArrayList<>();
         listaProducaoFiltradoDTO = new ArrayList<>();
 
@@ -227,6 +228,8 @@ public class ProducaoConsulta extends AppCompatActivity {
 
         if(item.getItemId() == 0){
             Intent intent = new Intent(ProducaoConsulta.this, ProducaoAltera.class);
+            intent.putExtra("NomeDash", textNome.getText().toString());
+            intent.putExtra("CargoDash", textCargo.getText().toString());
 
             intent.putExtra("ID", producao.getId());
             intent.putExtra("Produto", producao.getNmProduto());

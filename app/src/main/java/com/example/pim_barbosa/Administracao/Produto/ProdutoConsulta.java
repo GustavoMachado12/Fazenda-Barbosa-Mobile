@@ -62,8 +62,8 @@ public class ProdutoConsulta extends AppCompatActivity {
 
         txtBuscaPorNome = findViewById(R.id.editTextBusca);
 
-        textNome.setText("Gustavo");
-        textCargo.setText("Auxiliar Administrativo");
+        textNome.setText(getIntent().getStringExtra("Nome"));
+        textCargo.setText(getIntent().getStringExtra("Cargo"));
 
         //LIST VIEW
         listView = findViewById(R.id.listaProduto);
@@ -217,6 +217,8 @@ public class ProdutoConsulta extends AppCompatActivity {
         if(item.getItemId() == 0){
             try {
                 Intent altera = new Intent(ProdutoConsulta.this, ProdutoAltera.class);
+                altera.putExtra("NomeDash", textNome.getText().toString());
+                altera.putExtra("CargoDash", textCargo.getText().toString());
 
                 altera.putExtra("ID", produto.getId());
                 altera.putExtra("Nome", produto.getProduto());

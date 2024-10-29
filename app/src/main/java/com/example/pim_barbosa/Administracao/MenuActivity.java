@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.pim_barbosa.Administracao.Banco.Funcionario.DtoFuncionario;
 import com.example.pim_barbosa.Administracao.Banco.Relatorio.RelatorioConsulta;
 import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
 import com.example.pim_barbosa.Administracao.Fornecedor.FornecedorConsulta;
@@ -47,20 +48,25 @@ public class MenuActivity extends AppCompatActivity {
         dash_Relatorio = findViewById(R.id.textDashboardRelatorio);
         //dash_Outros= findViewById(R.id.textDashboardOutro);
 
-        textNome.setText("Gustavo");
-        textCargo.setText("Auxiliar Administrativo");
+
+        //DASHBOARD c/ NOME e CARGO
+        String nomeFuncionario = getIntent().getStringExtra("Nome");
+        String cargoFuncionario = getIntent().getStringExtra("Cargo");
+        if (nomeFuncionario != null && cargoFuncionario != null) {
+            textNome.setText(nomeFuncionario);
+            textCargo.setText(cargoFuncionario);
+        }
 
         dash_Consulta.setText("Consultas");
         dash_Relatorio.setText("Relatórios");
         //dash_Outros.setText("Outros");
 
-
-        //textConsulta.setPaintFlags(textConsulta.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
         cardCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent cliente = new Intent(MenuActivity.this, ClienteConsulta.class);
+                cliente.putExtra("Nome", nomeFuncionario);
+                cliente.putExtra("Cargo", cargoFuncionario);
                 startActivity(cliente);
             }
         });
@@ -69,6 +75,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent fornecedor = new Intent(MenuActivity.this, FornecedorConsulta.class);
+                fornecedor.putExtra("Nome", nomeFuncionario);
+                fornecedor.putExtra("Cargo", cargoFuncionario);
                 startActivity(fornecedor);
             }
         });
@@ -77,6 +85,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent produto = new Intent(MenuActivity.this, ProdutoConsulta.class);
+                produto.putExtra("Nome", nomeFuncionario);
+                produto.putExtra("Cargo", cargoFuncionario);
                 startActivity(produto);
             }
         });
@@ -85,6 +95,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent producao = new Intent(MenuActivity.this, ProducaoConsulta.class);
+                producao.putExtra("Nome", nomeFuncionario);
+                producao.putExtra("Cargo", cargoFuncionario);
                 startActivity(producao);
             }
         });
@@ -93,6 +105,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent venda = new Intent(MenuActivity.this, VendaConsulta.class);
+                venda.putExtra("Nome", nomeFuncionario);
+                venda.putExtra("Cargo", cargoFuncionario);
                 startActivity(venda);
             }
         });
@@ -102,6 +116,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent relatorio = new Intent(MenuActivity.this, RelatorioConsulta.class);
+                relatorio.putExtra("Nome", nomeFuncionario);
+                relatorio.putExtra("Cargo", cargoFuncionario);
                 startActivity(relatorio);
 
             }

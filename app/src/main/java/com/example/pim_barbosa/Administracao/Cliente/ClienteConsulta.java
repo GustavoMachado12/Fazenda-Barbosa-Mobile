@@ -65,8 +65,8 @@ public class ClienteConsulta extends AppCompatActivity {
 
         txtBuscaPorNome = findViewById(R.id.editTextBusca);
 
-        textNome.setText("Gustavo");
-        textCargo.setText("Auxiliar Administrativo");
+        textNome.setText(getIntent().getStringExtra("Nome"));
+        textCargo.setText(getIntent().getStringExtra("Cargo"));
 
         //LIST VIEW
         listView = findViewById(R.id.listaCliente);
@@ -231,17 +231,21 @@ public class ClienteConsulta extends AppCompatActivity {
             pegaDadosEndereco(cliente);
             Intent intent = new Intent(ClienteConsulta.this, ClienteAltera.class);
 
+            intent.putExtra("NomeDash", textNome.getText().toString());
+            intent.putExtra("CargoDash", textCargo.getText().toString());
+
             intent.putExtra("ID", cliente.getId());
             intent.putExtra("Nome", cliente.getNome());
             intent.putExtra("Documento", cliente.getDocumento());
             intent.putExtra("Email", cliente.getEmail());
             intent.putExtra("Telefone", cliente.getTelefone());
+
             intent.putExtra("CEP", cliente.getCep());
             intent.putExtra("Logradouro", cliente.getLogradouro());
+            intent.putExtra("Bairro", cliente.getBairro());
             intent.putExtra("Municipio", cliente.getMunicipio());
             intent.putExtra("UF", cliente.getUf());
             intent.putExtra("Complemento", cliente.getComplemento());
-            intent.putExtra("Bairro", cliente.getBairro());
             startActivity(intent);
 
         } else if(item.getItemId() == 1){
@@ -256,15 +260,15 @@ public class ClienteConsulta extends AppCompatActivity {
         String[] dadosEndereco = cliente.getEndereco().split(",");
 
         try {
-            if (dadosEndereco.length >= 4) {
+            if (dadosEndereco.length >= 5) {
                 cliente.setCep(dadosEndereco[0].trim());
                 cliente.setLogradouro(dadosEndereco[1].trim());
                 cliente.setBairro(dadosEndereco[2].trim());
                 cliente.setMunicipio(dadosEndereco[3].trim());
                 cliente.setUf(dadosEndereco[4].trim());
 
-                if (dadosEndereco.length > 5 && !dadosEndereco[4].trim().isEmpty()) {
-                    cliente.setComplemento(dadosEndereco[4].trim());
+                if (dadosEndereco.length > 5) {
+                    cliente.setComplemento(dadosEndereco[5].trim());
                 } else {
                     cliente.setComplemento("");
                 }
@@ -272,12 +276,12 @@ public class ClienteConsulta extends AppCompatActivity {
                 throw new IllegalArgumentException("Endereço com formato inválido.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-
             Toast.makeText(getApplicationContext(), "Erro: Formato de endereço incompleto", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     public void excluiDados(DtoCliente cliente){

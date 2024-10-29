@@ -64,8 +64,8 @@ public class VendaConsulta extends AppCompatActivity {
 
         txtBusca = findViewById(R.id.editTextBusca);
 
-        textNome.setText("Gustavo");
-        textCargo.setText("Auxiliar Administrativo");
+        textNome.setText(getIntent().getStringExtra("Nome"));
+        textCargo.setText(getIntent().getStringExtra("Cargo"));
 
         //LIST VIEW
         listView = findViewById(R.id.listaVenda);
@@ -233,6 +233,8 @@ public class VendaConsulta extends AppCompatActivity {
             try {
                 SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Intent altera = new Intent(VendaConsulta.this, VendaAltera.class);
+                altera.putExtra("NomeDash", textNome.getText().toString());
+                altera.putExtra("CargoDash", textCargo.getText().toString());
 
                 altera.putExtra("ID", venda.getId());
                 altera.putExtra("IdCliente", venda.getIdCliente());

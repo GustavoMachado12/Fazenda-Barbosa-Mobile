@@ -212,6 +212,7 @@
 
                 android:alpha="0.7"
                 android:ems="10"
+                android:enabled="false"
                 />
             <ImageView
                 android:id="@+id/img_producao_spinner"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ import java.sql.Statement;
 
 public class FornecedorAltera extends AppCompatActivity{
     EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento, txtBairro;
+    TextView textNome, textCargo;
+
     Button btnAlterar;
     String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
@@ -50,6 +53,9 @@ public class FornecedorAltera extends AppCompatActivity{
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
+
+        textNome = findViewById(R.id.textNomeDash);
+        textCargo = findViewById(R.id.textCargoDash);
 
         txtNome = findViewById(R.id.fornecedor_alterar_nome);
         txtDocumento = findViewById(R.id.fornecedor_alterar_documento);
@@ -74,6 +80,9 @@ public class FornecedorAltera extends AppCompatActivity{
 
         //BUNDLES EXTRAS
         Bundle bundle = getIntent().getExtras();
+        textNome.setText(getIntent().getStringExtra("NomeDash"));
+        textCargo.setText(getIntent().getStringExtra("CargoDash"));
+
         id = bundle.getInt("ID");
         txtNome.setText(bundle.getString("Nome"));
         txtDocumento.setText(bundle.getString("CNPJ"));
@@ -177,8 +186,7 @@ public class FornecedorAltera extends AppCompatActivity{
 
             if (rs != 0) {
                 Toast.makeText(FornecedorAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(FornecedorAltera.this, FornecedorConsulta.class);
-                startActivity(back);
+                finish();
             }
 
         } catch (SQLException e) {

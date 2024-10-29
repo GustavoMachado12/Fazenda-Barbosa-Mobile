@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 
 public class ProdutoAltera extends AppCompatActivity {
     EditText txtNome, txtQuantidade, txtPreco;
+    TextView textNome, textCargo;
     AutoCompleteTextView txtCategoria;
     Button btnAlterar;
     ImageView imgCategoria;
@@ -53,6 +55,9 @@ public class ProdutoAltera extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
 
+        textNome = findViewById(R.id.textNomeDash);
+        textCargo = findViewById(R.id.textCargoDash);
+
         txtNome = findViewById(R.id.produto_alterar_nome);
         txtCategoria = findViewById(R.id.produto_alterar_categoria);
         txtQuantidade = findViewById(R.id.produto_alterar_quantidade);
@@ -60,8 +65,10 @@ public class ProdutoAltera extends AppCompatActivity {
         imgCategoria = findViewById(R.id.img_produto_spinner);
         btnAlterar = findViewById(R.id.btn_produto_alterar);
 
-        try{
+        textNome.setText(getIntent().getStringExtra("NomeDash"));
+        textCargo.setText(getIntent().getStringExtra("CargoDash"));
 
+        try{
             Bundle bundle = getIntent().getExtras();
             if(bundle != null){
                 id = bundle.getInt("ID");
@@ -226,8 +233,7 @@ public class ProdutoAltera extends AppCompatActivity {
 
             if(rs != 0){
                 Toast.makeText(ProdutoAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(ProdutoAltera.this, ProdutoConsulta.class);
-                startActivity(back);
+                finish();
             }
 
         } catch (SQLException e){

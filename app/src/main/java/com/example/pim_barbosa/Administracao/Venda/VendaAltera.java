@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import java.util.Date;
 
 public class VendaAltera extends AppCompatActivity {
     EditText txtCliente, txtProduto, txtQuantidade, txtData;
+    TextView textNome, textCargo;
     Button btnAlterar;
     int id;
     int idCliente, idProduto, numQuantidade;
@@ -45,11 +47,17 @@ public class VendaAltera extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
 
+        textNome = findViewById(R.id.textNomeDash);
+        textCargo = findViewById(R.id.textCargoDash);
+
         txtCliente = findViewById(R.id.produto_alterar_cliente);
         txtProduto = findViewById(R.id.produto_alterar_produto);
         txtQuantidade = findViewById(R.id.produto_alterar_quantidade);
         txtData = findViewById(R.id.produto_alterar_data_venda);
         btnAlterar = findViewById(R.id.btn_produto_alterar);
+
+        textNome.setText(getIntent().getStringExtra("NomeDash"));
+        textCargo.setText(getIntent().getStringExtra("CargoDash"));
 
         try {
 
@@ -113,8 +121,7 @@ public class VendaAltera extends AppCompatActivity {
 
             if (rs > 0) {
                 Toast.makeText(VendaAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(VendaAltera.this, VendaConsulta.class);
-                startActivity(back);
+                finish();
             }
         } catch (SQLException e) {
             Toast.makeText(VendaAltera.this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();

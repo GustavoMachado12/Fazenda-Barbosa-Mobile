@@ -64,8 +64,8 @@ public class FornecedorConsulta extends AppCompatActivity {
 
         txtBuscaPorNome = findViewById(R.id.editTextBusca);
 
-        textNome.setText("Gustavo");
-        textCargo.setText("Auxiliar Administrativo");
+        textNome.setText(getIntent().getStringExtra("Nome"));
+        textCargo.setText(getIntent().getStringExtra("Cargo"));
 
         //LIST VIEW
         listView = findViewById(R.id.listaFornecedor);
@@ -177,6 +177,7 @@ public class FornecedorConsulta extends AppCompatActivity {
 
             while (rs.next()) {
                 DtoFornecedor fornecedor = new DtoFornecedor();
+
                 fornecedor.setId(rs.getInt("Codigo"));
                 fornecedor.setNome(rs.getString("Nome"));
                 fornecedor.setEmail(rs.getString("Email"));
@@ -225,12 +226,15 @@ public class FornecedorConsulta extends AppCompatActivity {
         if(item.getItemId() == 0){
             pegaDadosEndereco(fornecedor);
             Intent intent = new Intent(FornecedorConsulta.this, FornecedorAltera.class);
+            intent.putExtra("NomeDash", textNome.getText().toString());
+            intent.putExtra("CargoDash", textCargo.getText().toString());
 
             intent.putExtra("ID", fornecedor.getId());
             intent.putExtra("Nome", fornecedor.getNome());
             intent.putExtra("CNPJ", fornecedor.getDocumento());
             intent.putExtra("Email", fornecedor.getEmail());
             intent.putExtra("Telefone", fornecedor.getTelefone());
+
             intent.putExtra("CEP", fornecedor.getCep());
             intent.putExtra("Logradouro", fornecedor.getLogradouro());
             intent.putExtra("Municipio", fornecedor.getMunicipio());
@@ -256,10 +260,15 @@ public class FornecedorConsulta extends AppCompatActivity {
                 fornecedor.setLogradouro(dadosEndereco[1].trim());
                 fornecedor.setBairro(dadosEndereco[2].trim());
                 fornecedor.setMunicipio(dadosEndereco[3].trim());
-                fornecedor.setUf(dadosEndereco[4].trim());
 
-                if (dadosEndereco.length > 5 && !dadosEndereco[4].trim().isEmpty()) {
-                    fornecedor.setComplemento(dadosEndereco[4].trim());
+                if (dadosEndereco.length >= 5) {
+                    fornecedor.setUf(dadosEndereco[4].trim());
+                } else {
+                    fornecedor.setUf("");
+                }
+
+                if (dadosEndereco.length > 5) {
+                    fornecedor.setComplemento(dadosEndereco[5].trim());
                 } else {
                     fornecedor.setComplemento("");
                 }
@@ -267,12 +276,12 @@ public class FornecedorConsulta extends AppCompatActivity {
                 throw new IllegalArgumentException("Endereço com formato inválido.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-
             Toast.makeText(getApplicationContext(), "Erro: Formato de endereço incompleto", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public void excluiDados(DtoFornecedor fornecedor){
         AlertDialog.Builder msg = new AlertDialog.Builder(FornecedorConsulta.this);

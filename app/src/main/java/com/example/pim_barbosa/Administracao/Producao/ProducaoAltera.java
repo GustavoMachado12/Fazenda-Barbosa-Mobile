@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 
 public class ProducaoAltera extends AppCompatActivity {
     EditText txtNomeProduto, txtDataPlantio, txtDataColheita, txtValor;
+    TextView textNome, textCargo;
     AutoCompleteTextView txtStatus;
     ImageView imgMenu;
     Button btnAlterar;
@@ -59,6 +61,12 @@ public class ProducaoAltera extends AppCompatActivity {
         txtValor = findViewById(R.id.produto_alterar_valor);
         imgMenu = findViewById(R.id.img_producao_spinner);
         btnAlterar = findViewById(R.id.btn_producao_alterar);
+
+        textNome = findViewById(R.id.textNomeDash);
+        textCargo = findViewById(R.id.textCargoDash);
+
+        textNome.setText(getIntent().getStringExtra("NomeDash"));
+        textCargo.setText(getIntent().getStringExtra("CargoDash"));
 
         try {
             Bundle bundle = getIntent().getExtras();
@@ -224,8 +232,7 @@ public class ProducaoAltera extends AppCompatActivity {
 
             if (rs > 0) {
                 Toast.makeText(ProducaoAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(ProducaoAltera.this, ProducaoConsulta.class);
-                startActivity(back);
+                finish();
             }
         } catch (SQLException e) {
             Toast.makeText(ProducaoAltera.this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();

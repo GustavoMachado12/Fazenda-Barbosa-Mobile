@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,9 +31,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ClienteAltera extends AppCompatActivity {
+    TextView textNome, textCargo;
     EditText txtNome, txtDocumento, txtEmail, txtTelefone, txtCEP, txtRua, txtMunicipio, txtEstado, txtComplemento, txtBairro;
     Button btnAlterar;
-    String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
     int id;
     DtoCliente dtoCliente = new DtoCliente();
@@ -52,11 +53,13 @@ public class ClienteAltera extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
 
+        textNome = findViewById(R.id.textNomeDash);
+        textCargo = findViewById(R.id.textCargoDash);
+
         txtNome = findViewById(R.id.cliente_alterar_nome);
         txtDocumento = findViewById(R.id.cliente_alterar_documento);
         txtEmail = findViewById(R.id.cliente_alterar_email);
         txtTelefone = findViewById(R.id.cliente_alterar_telefone);
-
 
         txtCEP = findViewById(R.id.cliente_alterar_CEP);
         txtRua = findViewById(R.id.cliente_alterar_endereco);
@@ -67,6 +70,10 @@ public class ClienteAltera extends AppCompatActivity {
         btnAlterar = findViewById(R.id.btn_cliente_alterar);
 
         Bundle bundle = getIntent().getExtras();
+
+        textNome.setText(getIntent().getStringExtra("NomeDash"));
+        textCargo.setText(getIntent().getStringExtra("CargoDash"));
+
         id = bundle.getInt("ID");
         txtNome.setText(bundle.getString("Nome"));
         txtDocumento.setText(bundle.getString("Documento"));
@@ -174,8 +181,7 @@ public class ClienteAltera extends AppCompatActivity {
 
             if(rs > 0){
                 Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
-                startActivity(back);
+                finish();
             }
         } catch (SQLException e){
             Toast.makeText(ClienteAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
@@ -203,8 +209,7 @@ public class ClienteAltera extends AppCompatActivity {
 
             if(rs >= 0){
                 Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
-                startActivity(back);
+                finish();
             }
 
         } catch (SQLException e){

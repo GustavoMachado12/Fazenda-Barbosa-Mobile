@@ -1,7 +1,10 @@
 package com.example.pim_barbosa;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -11,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pim_barbosa.Administracao.Banco.LoginAcesso;
@@ -27,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
 
         //BARRA DO TOPO TRANSPARENTE
         getWindow().setFlags(
@@ -41,25 +41,29 @@ public class MainActivity extends AppCompatActivity {
         editTextSenha = findViewById(R.id.editTextPasswordLogin);
         buttonLogin = findViewById(R.id.buttonLogin);
 
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String[] loginData = loginAcesso.verificaAcesso(editTextLogin.getText().toString(), editTextSenha.getText().toString());
+                nvlLogin = Integer.parseInt(loginData[0]);
 
-
-                nvlLogin = loginAcesso.verificaAcesso(editTextLogin.getText().toString(), editTextSenha.getText().toString());
-                if(nvlLogin != 0){
-                    if(nvlLogin != 1)
-                        Toast.makeText(MainActivity.this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                    Intent login = new Intent(MainActivity.this, MenuActivity.class);
-                    startActivity(login);
+                if (nvlLogin != 0) {
+                    Toast.makeText(MainActivity.this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                    if (nvlLogin != 1) {
+                        Intent loginIntent = new Intent(MainActivity.this, MenuActivity.class);
+                        loginIntent.putExtra("Nome", loginData[1]);
+                        loginIntent.putExtra("Cargo", loginData[2]);
+                        startActivity(loginIntent);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Acess Home Client", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "Login incorreto ou vazio.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
+
 
     //MOSTRA SENHA ESCONDIDA
     public void ShowHidePass(View view){
