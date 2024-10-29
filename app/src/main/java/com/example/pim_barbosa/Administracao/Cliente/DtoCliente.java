@@ -132,4 +132,15 @@ public class DtoCliente {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
+
+
+    //ENDERECO
+    public String getEnderecoCompleto() {
+        return (cep != null ? cep + ", " : "") +
+                (logradouro != null ? logradouro + ", " : "") +
+                (bairro != null ? bairro + ", " : "") +
+                (municipio != null ? municipio + ", " : "") +
+                (uf != null ? uf + ", " : "") +
+                (complemento != null ? complemento : "").trim();
+    }
 }

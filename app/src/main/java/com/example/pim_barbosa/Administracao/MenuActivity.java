@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.pim_barbosa.Administracao.Banco.Relatorio.RelatorioConsulta;
 import com.example.pim_barbosa.Administracao.Cliente.ClienteConsulta;
 import com.example.pim_barbosa.Administracao.Fornecedor.FornecedorConsulta;
 import com.example.pim_barbosa.Administracao.Producao.ProducaoConsulta;
@@ -44,14 +45,14 @@ public class MenuActivity extends AppCompatActivity {
 
         dash_Consulta = findViewById(R.id.textDashboardConsulta);
         dash_Relatorio = findViewById(R.id.textDashboardRelatorio);
-        dash_Outros= findViewById(R.id.textDashboardOutro);
+        //dash_Outros= findViewById(R.id.textDashboardOutro);
 
         textNome.setText("Gustavo");
         textCargo.setText("Auxiliar Administrativo");
 
         dash_Consulta.setText("Consultas");
         dash_Relatorio.setText("Relatórios");
-        dash_Outros.setText("Outros");
+        //dash_Outros.setText("Outros");
 
 
         //textConsulta.setPaintFlags(textConsulta.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -96,5 +97,14 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        //------------------------------------------------------------------------------------------
+        dash_Relatorio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent relatorio = new Intent(MenuActivity.this, RelatorioConsulta.class);
+                startActivity(relatorio);
+
+            }
+        });
     }
 }

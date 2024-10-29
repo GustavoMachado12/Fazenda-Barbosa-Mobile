@@ -124,7 +124,7 @@ public class FornecedorConsulta extends AppCompatActivity {
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapfornecedor = new ArrayList<>();
 
-            listaFornecedor.clear(); // Limpa a lista original
+            listaFornecedor.clear();
 
             while (rs.next()) {
                 DtoFornecedor fornecedor = new DtoFornecedor();
@@ -134,9 +134,8 @@ public class FornecedorConsulta extends AppCompatActivity {
                 fornecedor.setEndereco(rs.getString("Endereco"));
                 fornecedor.setTelefone(rs.getString("Telefone"));
                 fornecedor.setDocumento(rs.getString("CNPJ"));
-                listaFornecedor.add(fornecedor); // Adiciona à lista completa
+                listaFornecedor.add(fornecedor);
 
-                // Cria o Map para o SimpleAdapter
                 Map<String, String> fornecedorMap = new HashMap<>();
                 fornecedorMap.put("fornecedor_ID", String.valueOf(fornecedor.getId()));
                 fornecedorMap.put("fornecedor_Nome", fornecedor.getNome());
@@ -147,7 +146,6 @@ public class FornecedorConsulta extends AppCompatActivity {
                 listaMapfornecedor.add(fornecedorMap);
             }
 
-            // Atualiza a lista filtrada para mostrar todos os fornecedors inicialmente
             listaFornecedorFiltrado.clear();
             listaFornecedorFiltrado.addAll(listaFornecedor);
 
@@ -175,7 +173,7 @@ public class FornecedorConsulta extends AppCompatActivity {
             ResultSet rs = st.executeQuery(query);
             List<Map<String, String>> listaMapfornecedor = new ArrayList<>();
 
-            listaFornecedor.clear(); // Limpa a lista original
+            listaFornecedor.clear();
 
             while (rs.next()) {
                 DtoFornecedor fornecedor = new DtoFornecedor();
@@ -185,9 +183,9 @@ public class FornecedorConsulta extends AppCompatActivity {
                 fornecedor.setEndereco(rs.getString("Endereco"));
                 fornecedor.setTelefone(rs.getString("Telefone"));
                 fornecedor.setDocumento(rs.getString("CNPJ"));
-                listaFornecedor.add(fornecedor); // Adiciona à lista completa
+                listaFornecedor.add(fornecedor);
 
-                // Cria o Map para o SimpleAdapter
+
                 Map<String, String> fornecedorMap = new HashMap<>();
                 fornecedorMap.put("fornecedor_ID", String.valueOf(fornecedor.getId()));
                 fornecedorMap.put("fornecedor_Nome", fornecedor.getNome());
@@ -198,7 +196,6 @@ public class FornecedorConsulta extends AppCompatActivity {
                 listaMapfornecedor.add(fornecedorMap);
             }
 
-            // Atualiza a lista filtrada para mostrar todos os fornecedors inicialmente
             listaFornecedorFiltrado.clear();
             listaFornecedorFiltrado.addAll(listaFornecedor);
 
@@ -257,10 +254,11 @@ public class FornecedorConsulta extends AppCompatActivity {
             if (dadosEndereco.length >= 4) {
                 fornecedor.setCep(dadosEndereco[0].trim());
                 fornecedor.setLogradouro(dadosEndereco[1].trim());
-                fornecedor.setMunicipio(dadosEndereco[2].trim());
-                fornecedor.setUf(dadosEndereco[3].trim());
+                fornecedor.setBairro(dadosEndereco[2].trim());
+                fornecedor.setMunicipio(dadosEndereco[3].trim());
+                fornecedor.setUf(dadosEndereco[4].trim());
 
-                if (dadosEndereco.length > 4 && !dadosEndereco[4].trim().isEmpty()) {
+                if (dadosEndereco.length > 5 && !dadosEndereco[4].trim().isEmpty()) {
                     fornecedor.setComplemento(dadosEndereco[4].trim());
                 } else {
                     fornecedor.setComplemento("");

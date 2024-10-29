@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pim_barbosa.Administracao.Banco.ProcuraEndereco;
 import com.example.pim_barbosa.Conexao.ConSQL;
 import com.example.pim_barbosa.R;
 
@@ -34,6 +35,7 @@ public class FornecedorAltera extends AppCompatActivity{
     String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
     int id;
+    DtoFornecedor dtoFornecedor = new DtoFornecedor();
 
     //BANCO
     Connection connection;
@@ -56,11 +58,18 @@ public class FornecedorAltera extends AppCompatActivity{
 
 
         txtCEP = findViewById(R.id.fornecedor_alterar_CEP);
+        dtoFornecedor.setCep(txtCEP.getText().toString());
         txtRua = findViewById(R.id.fornecedor_alterar_endereco);
-        txtMunicipio = findViewById(R.id.fornecedor_alterar_municipio);
-        txtEstado = findViewById(R.id.fornecedor_alterar_estado);
-        txtComplemento = findViewById(R.id.fornecedor_alterar_complemento);
+        dtoFornecedor.setLogradouro(txtRua.getText().toString());
         txtBairro = findViewById(R.id.fornecedor_alterar_bairro);
+        dtoFornecedor.setBairro(txtBairro.getText().toString());
+        txtMunicipio = findViewById(R.id.fornecedor_alterar_municipio);
+        dtoFornecedor.setMunicipio(txtMunicipio.getText().toString());
+        txtEstado = findViewById(R.id.fornecedor_alterar_estado);
+        dtoFornecedor.setUf(txtEstado.getText().toString());
+        txtComplemento = findViewById(R.id.fornecedor_alterar_complemento);
+        dtoFornecedor.setComplemento(txtComplemento.getText().toString());
+
         btnAlterar = findViewById(R.id.btn_fornecedor_alterar);
 
         //BUNDLES EXTRAS
@@ -70,21 +79,25 @@ public class FornecedorAltera extends AppCompatActivity{
         txtDocumento.setText(bundle.getString("CNPJ"));
         txtEmail.setText(bundle.getString("Email"));
         txtTelefone.setText(bundle.getString("Telefone"));
-        txtCEP.setText(bundle.getString("CEP"));
-        txtRua.setText(bundle.getString("Logradouro"));
-        txtMunicipio.setText(bundle.getString("Municipio"));
-        txtEstado.setText(bundle.getString("UF"));
-        txtComplemento.setText(bundle.getString("Complemento"));
-        txtBairro.setText(bundle.getString("Bairro"));
 
-        //ADICIONA O ENDEREÇO COMPLETO PARA O BANCO
-        txtEndereco = txtCEP.getText().toString() + ", " +
-                txtRua.getText().toString() + ", " +
-                txtBairro.getText().toString() + "," +
-                txtMunicipio.getText().toString() + ", " +
-                txtEstado.getText().toString() + ", " +
-                txtComplemento.getText().toString();
+        //ENDEREÇO
+        try{
+            dtoFornecedor.setCep(bundle.getString("CEP"));
+            dtoFornecedor.setLogradouro(bundle.getString("Logradouro"));
+            dtoFornecedor.setBairro(bundle.getString("Bairro"));
+            dtoFornecedor.setMunicipio(bundle.getString("Municipio"));
+            dtoFornecedor.setUf(bundle.getString("UF"));
+            dtoFornecedor.setComplemento(bundle.getString("Complemento"));
 
+            txtCEP.setText(dtoFornecedor.getCep());
+            txtRua.setText(dtoFornecedor.getLogradouro());
+            txtBairro.setText(dtoFornecedor.getBairro());
+            txtMunicipio.setText(dtoFornecedor.getMunicipio());
+            txtEstado.setText(dtoFornecedor.getUf());
+            txtComplemento.setText(dtoFornecedor.getComplemento());
+        }catch (Exception e){
+            Toast.makeText(FornecedorAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
+        }
 
         //API PARA BUSCAR CEP QUANDO DIGITADO POR COMPLETO
         txtCEP.addTextChangedListener(new TextWatcher() {
@@ -102,39 +115,8 @@ public class FornecedorAltera extends AppCompatActivity{
             public void afterTextChanged(Editable s) {
                 if(txtCEP.toString().trim().length() > 7){
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url + txtCEP.getText().toString(), null, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                String address = response.getString("address");
-                                String state = response.getString("state");
-                                String city = response.getString("city");
-                                String district = response.getString("district");
-
-                                txtRua.setText(address);
-                                txtEstado.setText(state);
-                                txtMunicipio.setText(city);
-                                txtBairro.setText(district);
-
-                                txtEndereco = txtCEP.getText().toString() + ", " +
-                                        address + ", " +
-                                        district + ", " +
-                                        city + ", " +
-                                        state;
-
-
-
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    });
-                    Volley.newRequestQueue(FornecedorAltera.this).add(request);
+                    ProcuraEndereco procuraEndereco = new ProcuraEndereco();
+                    procuraEndereco.pesquisaCEP(txtCEP.getText().toString(), dtoFornecedor, FornecedorAltera.this);
 
                 }
             }
@@ -145,6 +127,9 @@ public class FornecedorAltera extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
+                //PEGA O COMPLEMENTO
+                dtoFornecedor.setComplemento(txtComplemento.getText().toString());
+
                 try {
                     if (txtNome.getText().toString().isEmpty()) {
                         txtNome.setError("Campo obrigatório");
@@ -154,18 +139,16 @@ public class FornecedorAltera extends AppCompatActivity{
                         txtEmail.setError("Campo obrigatório");
                     } else if (txtTelefone.getText().toString().isEmpty()) {
                         txtTelefone.setError("Campo obrigatório");
-                    } else if (txtEndereco == null) {
+                    } else if (txtCEP.getText().toString().length() != 8) {
                         txtCEP.setError("Campo obrigatório");
                     } else if (txtCEP.getText().toString().isEmpty()) {
                         txtCEP.setError("Campo obrigatório");
                     } else if (txtDocumento.getText().toString().length() == 14) {
-                        txtEndereco += ", " + txtComplemento.getText().toString();
-                        alteraFornecedor();  // Pessoa jurídica
+                        txtEndereco = dtoFornecedor.getEnderecoCompleto();
+                        alteraFornecedor();
                     } else {
                         Toast.makeText(FornecedorAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
                     }
-                } catch (NullPointerException e) {
-                    Toast.makeText(FornecedorAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(FornecedorAltera.this, "Erro: " + e, Toast.LENGTH_SHORT).show();
                 }

@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pim_barbosa.Administracao.Banco.ProcuraEndereco;
 import com.example.pim_barbosa.Conexao.ConSQL;
 import com.example.pim_barbosa.R;
 
@@ -34,6 +35,7 @@ public class ClienteAltera extends AppCompatActivity {
     String url = "https://cep.awesomeapi.com.br/json/";
     String txtEndereco;
     int id;
+    DtoCliente dtoCliente = new DtoCliente();
 
     //BANCO
     Connection connection;
@@ -70,20 +72,25 @@ public class ClienteAltera extends AppCompatActivity {
         txtDocumento.setText(bundle.getString("Documento"));
         txtEmail.setText(bundle.getString("Email"));
         txtTelefone.setText(bundle.getString("Telefone"));
-        txtCEP.setText(bundle.getString("CEP"));
-        txtRua.setText(bundle.getString("Logradouro"));
-        txtMunicipio.setText(bundle.getString("Municipio"));
-        txtEstado.setText(bundle.getString("UF"));
-        txtComplemento.setText(bundle.getString("Complemento"));
-        txtBairro.setText(bundle.getString("Bairro"));
 
-        //ADICIONA O ENDEREÇO COMPLETO PARA O BANCO
-        txtEndereco = txtCEP.getText().toString() + ", " +
-                txtRua.getText().toString() + ", " +
-                txtBairro.getText().toString() + ", " +
-                txtMunicipio.getText().toString() + ", " +
-                txtEstado.getText().toString() + ", " +
-                txtComplemento.getText().toString();
+        //ENDEREÇO
+        try{
+            dtoCliente.setCep(bundle.getString("CEP"));
+            dtoCliente.setLogradouro(bundle.getString("Logradouro"));
+            dtoCliente.setBairro(bundle.getString("Bairro"));
+            dtoCliente.setMunicipio(bundle.getString("Municipio"));
+            dtoCliente.setUf(bundle.getString("UF"));
+            dtoCliente.setComplemento(bundle.getString("Complemento"));
+
+            txtCEP.setText(dtoCliente.getCep());
+            txtRua.setText(dtoCliente.getLogradouro());
+            txtBairro.setText(dtoCliente.getBairro());
+            txtMunicipio.setText(dtoCliente.getMunicipio());
+            txtEstado.setText(dtoCliente.getUf());
+            txtComplemento.setText(dtoCliente.getComplemento());
+        } catch(Exception e){
+            e.printStackTrace();
+        }
 
 
 
@@ -103,39 +110,8 @@ public class ClienteAltera extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(txtCEP.toString().trim().length() > 7){
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url + txtCEP.getText().toString(), null, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                String address = response.getString("address");
-                                String state = response.getString("state");
-                                String city = response.getString("city");
-                                String district = response.getString("district");
-
-                                txtRua.setText(address);
-                                txtEstado.setText(state);
-                                txtMunicipio.setText(city);
-                                txtBairro.setText(district);
-
-                                txtEndereco = txtCEP.getText().toString() + ", " +
-                                            address + ", " +
-                                            district + ", " +
-                                            city + ", " +
-                                            state;
-
-
-
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    });
-                    Volley.newRequestQueue(ClienteAltera.this).add(request);
+                    ProcuraEndereco procuraEndereco = new ProcuraEndereco();
+                    procuraEndereco.pesquisaCEP(txtCEP.getText().toString(), dtoCliente, ClienteAltera.this);
 
                 }
             }
@@ -144,6 +120,9 @@ public class ClienteAltera extends AppCompatActivity {
         btnAlterar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //PEGA COMPLEMENTO
+                dtoCliente.setComplemento(txtComplemento.getText().toString());
 
                 try {
                     if (txtNome.getText().toString().isEmpty()) {
@@ -154,15 +133,13 @@ public class ClienteAltera extends AppCompatActivity {
                         txtEmail.setError("Campo obrigatório");
                     } else if (txtTelefone.getText().toString().isEmpty()) {
                         txtTelefone.setError("Campo obrigatório");
-                    } else if (txtEndereco == null) {
-                        txtCEP.setError("Campo obrigatório");
-                    } else if (txtCEP.getText().toString().isEmpty()) {
+                    } else if (txtCEP.getText().toString().length() != 8) {
                         txtCEP.setError("Campo obrigatório");
                     } else if (txtDocumento.getText().toString().length() == 11) {
-                        txtEndereco += ", " + txtComplemento.getText().toString();
+                        txtEndereco = dtoCliente.getEnderecoCompleto();
                         alteraClienteF();
                     } else if (txtDocumento.getText().toString().length() == 14) {
-                        txtEndereco += ", " + txtComplemento.getText().toString();
+                        txtEndereco = dtoCliente.getEnderecoCompleto();
                         alteraClienteJ();
                     } else {
                         Toast.makeText(ClienteAltera.this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
@@ -195,7 +172,7 @@ public class ClienteAltera extends AppCompatActivity {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
 
-            if(rs == 0){
+            if(rs > 0){
                 Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
                 Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
                 startActivity(back);
@@ -224,7 +201,7 @@ public class ClienteAltera extends AppCompatActivity {
             Statement st = connection.createStatement();
             int rs = st.executeUpdate(query);
 
-            if(rs != 1){
+            if(rs >= 0){
                 Toast.makeText(ClienteAltera.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
                 Intent back = new Intent(ClienteAltera.this, ClienteConsulta.class);
                 startActivity(back);
